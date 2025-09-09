@@ -281,7 +281,7 @@ public class CampaignController {
 
         String base64Image = campaignRequest.getCampaignImageUrl();
         if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-            String uploadDir = "src/main/resources/static/images/campaigns/";  // Ensure this directory exists
+            String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/campaigns/";  // Ensure this directory exists
             String imageName = "campaign_image_" + System.currentTimeMillis() + ".webp";  // Unique file name
             String filePath = uploadDir + imageName;
             try {
@@ -462,7 +462,7 @@ public class CampaignController {
 
             String base64Image = campaignRequest.getCampaignImageUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/campaigns/";
+                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/campaigns/";
                 String imageName = "campaign_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {

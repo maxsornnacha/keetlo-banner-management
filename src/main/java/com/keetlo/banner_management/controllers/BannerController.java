@@ -235,7 +235,7 @@ public class BannerController {
 
         String base64Image = bannerRequest.getImageUrl();
         if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-            String uploadDir = "src/main/resources/static/images/banners/";  // Ensure this directory exists
+            String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/banners/";  // Ensure this directory exists
             String imageName = "banner_image_" + System.currentTimeMillis() + ".webp";  // Unique file name
             String filePath = uploadDir + imageName;
             try {
@@ -348,7 +348,7 @@ public class BannerController {
 
             String base64Image = bannerRequest.getImageUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/banners/";
+                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/banners/";
                 String imageName = "banner_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {

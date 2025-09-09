@@ -182,7 +182,7 @@ public class UserController {
 
             String base64Image = userRequest.getAvatarUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/users/";
+                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/users/";
                 String imageName = "user_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {

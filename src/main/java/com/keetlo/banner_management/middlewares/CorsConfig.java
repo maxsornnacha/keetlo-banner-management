@@ -17,7 +17,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 .maxAge(3600);
 
         registry.addMapping("/**")
-                .allowedOrigins("https://banner-management.keetlo.com")
+                .allowedOrigins("http://localhost:3013","https://banner-management.keetlo.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)

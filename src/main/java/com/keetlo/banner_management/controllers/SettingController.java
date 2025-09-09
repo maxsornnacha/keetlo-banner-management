@@ -180,7 +180,7 @@ public class SettingController {
             String base64Image = settingRequest.getBrandImageUrl();
 
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/brands/";
+                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/brands/";
                 String imageName = "brand_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
