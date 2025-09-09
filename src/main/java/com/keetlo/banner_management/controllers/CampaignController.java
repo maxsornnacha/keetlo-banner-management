@@ -281,13 +281,13 @@ public class CampaignController {
 
         String base64Image = campaignRequest.getCampaignImageUrl();
         if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-            String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/campaigns/";  // Ensure this directory exists
+            String uploadDir = "src/main/resources/static/images/campaigns/";  // Ensure this directory exists
             String imageName = "campaign_image_" + System.currentTimeMillis() + ".webp";  // Unique file name
             String filePath = uploadDir + imageName;
             try {
                 imageHandler.saveBase64Image(base64Image, filePath);  // Assuming ImageHandler handles Base64 decoding and file saving
             } catch (IOException e) {
-                response.setMessage("Failed to save image." + e.getMessage());
+                response.setMessage("Failed to save image.");
                 response.setStatus("error");
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -462,7 +462,7 @@ public class CampaignController {
 
             String base64Image = campaignRequest.getCampaignImageUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/campaigns/";
+                String uploadDir = "src/main/resources/static/images/campaigns/";
                 String imageName = "campaign_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {

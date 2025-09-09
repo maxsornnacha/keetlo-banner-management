@@ -180,7 +180,7 @@ public class SettingController {
             String base64Image = settingRequest.getBrandImageUrl();
 
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/brands/";
+                String uploadDir = "src/main/resources/static/images/brands/";
                 String imageName = "brand_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
@@ -190,7 +190,7 @@ public class SettingController {
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
-                    response.setMessage("Failed to save image." + e.getMessage());
+                    response.setMessage("Failed to save image.");
                     response.setStatus("error");
                     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                 }

@@ -182,7 +182,7 @@ public class UserController {
 
             String base64Image = userRequest.getAvatarUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "/home/sornnacha_bur/main/code_projects/keetlo/banner_management/uploads/images/users/";
+                String uploadDir = "src/main/resources/static/images/users/";
                 String imageName = "user_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
@@ -192,7 +192,7 @@ public class UserController {
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
-                    response.setMessage("Failed to save image." + e.getMessage());
+                    response.setMessage("Failed to save image.");
                     response.setStatus("error");
                     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
