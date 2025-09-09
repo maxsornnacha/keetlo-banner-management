@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banner Embed</title>
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0px !important;
+        background-color: ghostwhite;
+      }
+      #banner-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="banner-container"></div>
+    <script>
+      const fetchBanners = () => {
+        const API_BASE = "http://localhost:8000"; // Change to your API
+        const PUBLIC_KEY =
+          new URLSearchParams(window.location.search).get("key") || "";
+        const CAMPAIGN_ID =
+          new URLSearchParams(window.location.search).get("campaign") || "";
+        const width =
+          new URLSearchParams(window.location.search).get("width") || "";
+        const height =
+          new URLSearchParams(window.location.search).get("height") || "";
+        let count = 1;
+
+        if (!CAMPAIGN_ID) {
+          document.getElementById("banner-container").textContent =
+            "Missing campaign ID.";
+          return;
+        }
+
+        fetch(
+          `${API_BASE}/public/inside/campaigns/${encodeURIComponent(
+            CAMPAIGN_ID
+          )}/banners?key=${encodeURIComponent(PUBLIC_KEY)}`
+        )
+          .then((r) => r.json())
+          .then((r) => {
+            if (r.status === "error") {
+              document.getElementById("banner-container").textContent =
+                r.message;
+              return;
+            }
+
+            const { banners = [] } = r.data;
+            if (!banners.length) {
+              document.getElementById("banner-container").textContent =
+                "No banners available.";
+              return;
+            }
+
+            if (count === 1) {
+              banners.map((b) => {
+                function sendBeacon(url) {
+                  try {
+                    if (navigator.sendBeacon) {
+                      navigator.sendBeacon(url);
+                    } else {
+                      fetch(url, { method: "POST", keepalive: true });
+                    }
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }
+                sendBeacon(
+                  `${API_BASE}/public/track/view?bannerId=${encodeURIComponent(
+                    b.bannerId
+                  )}&key=${encodeURIComponent(PUBLIC_KEY)}`
+                );
+              });
+            }
+            count++;
+
+            let idx = 0;
+            const root = document.getElementById("banner-container");
+            if (width && height) {
+              root.style.backgroundColor = "ghostwhite";
+              root.style.width = "100%";
+              root.style.maxWidth = `${width}px`;
+              root.style.height = `${height}px`;
+              root.style.maxHeight = `${height}px`;
+            }
+
+            const img = document.createElement("img");
+            const showBanner = (i) => {
+              const b = banners[i];
+              if (b?.link) {
+                const link = document.createElement("a");
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.style.display = "block";
+                link.appendChild(img);
+                root.innerHTML = "";
+                root.appendChild(link);
+                link.href = `${API_BASE}/public/track/click?bannerId=${encodeURIComponent(
+                  b.bannerId
+                )}&key=${encodeURIComponent(PUBLIC_KEY)}`;
+              } else {
+                root.appendChild(img);
+              }
+
+              img.src = b.imageUrl.startsWith("http")
+                ? b.imageUrl
+                : API_BASE + b.imageUrl;
+              img.alt = b.bannerName;
+              img.decoding = "async";
+              img.loading = "lazy";
+              img.src = b.imageUrl.startsWith("http")
+                ? b.imageUrl
+                : API_BASE + b.imageUrl;
+              img.style.maxWidth = "100%";
+              img.style.width = b.imageWidth + "px";
+              img.style.height = b.imageHeight + "px";
+            };
+
+            showBanner(idx);
+
+            if (banners.length > 1) {
+              const ROTATE_MS = 8000;
+              setInterval(() => {
+                idx = (idx + 1) % banners.length;
+                showBanner(idx);
+              }, ROTATE_MS);
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+            document.getElementById("banner-container").textContent =
+              "Failed to load banner.";
+          });
+      };
+
+      fetchBanners();
+    </script>
+  </body>
+</html>

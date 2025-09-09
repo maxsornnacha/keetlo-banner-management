@@ -1,0 +1,21 @@
+export type Banner = {
+  bannerId: string;
+  projectId: string;
+  campaignId: string;
+  bannerName: string;
+  projectName: string;
+  campaignName: string;
+  description: string | null;
+  projectDescription: string | null;
+  campaignDescription: string | null;
+  imageUrl: string;
+  projectImageUrl: string | null;
+  campaignImageUrl: string | null;
+  imageWidth?: number | null;
+  imageHeight?: number | null;
+  views: number;
+  clicks: number;
+  link?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+};
