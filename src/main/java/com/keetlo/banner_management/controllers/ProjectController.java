@@ -262,7 +262,7 @@ public class ProjectController {
             try {
                 imageHandler.saveBase64Image(base64Image, filePath);  // Assuming ImageHandler handles Base64 decoding and file saving
             } catch (IOException e) {
-                response.setMessage("Failed to save image.");
+                response.setMessage("Failed to save image." + e.getMessage());
                 response.setStatus("error");
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -405,7 +405,7 @@ public class ProjectController {
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
-                    response.setMessage("Failed to save image.");
+                    response.setMessage("Failed to save image." + e.getMessage());
                     response.setStatus("error");
                     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                 }

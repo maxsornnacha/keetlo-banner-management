@@ -190,7 +190,7 @@ public class SettingController {
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
-                    response.setMessage("Failed to save image.");
+                    response.setMessage("Failed to save image." + e.getMessage());
                     response.setStatus("error");
                     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
