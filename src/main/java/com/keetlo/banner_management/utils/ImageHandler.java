@@ -13,6 +13,12 @@ public class ImageHandler {
     public void saveBase64Image(String base64Image, String filePath) throws IOException {
         String imageString = base64Image.split(",")[1];  // Remove the data:image/png;base64, part
         byte[] decodedBytes = Base64.getDecoder().decode(imageString);
+        File file = new File(filePath);
+
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();  // This will create the directory and any missing parent directories
+        }
 
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(decodedBytes);

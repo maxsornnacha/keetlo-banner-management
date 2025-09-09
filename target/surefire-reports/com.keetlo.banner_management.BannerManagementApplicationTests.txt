@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.keetlo.banner_management.BannerManagementApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.550 s -- in com.keetlo.banner_management.BannerManagementApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.345 s -- in com.keetlo.banner_management.BannerManagementApplicationTests
