@@ -9,6 +9,7 @@ import com.keetlo.banner_management.routes.ProjectRoutes;
 import com.keetlo.banner_management.utils.ActionLogService;
 import com.keetlo.banner_management.utils.ImageHandler;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -256,7 +257,7 @@ public class ProjectController {
 
         String base64Image = projectRequest.getProjectImageUrl();
         if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-            String uploadDir = "src/main/resources/static/images/projects/";  // Ensure this directory exists
+            String uploadDir = "/images/projects/";  // Ensure this directory exists
             String imageName = "project_image_" + System.currentTimeMillis() + ".webp";  // Unique file name
             String filePath = uploadDir + imageName;
             try {
@@ -395,13 +396,13 @@ public class ProjectController {
 
             String base64Image = projectRequest.getProjectImageUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/projects/";
+                String uploadDir = "/images/projects/";
                 String imageName = "project_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
                     imageHandler.saveBase64Image(base64Image, filePath);
                     if(existingProject.getProjectImageUrl() != null && !existingProject.getProjectImageUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + existingProject.getProjectImageUrl();
+                        String oldFilePath = existingProject.getProjectImageUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
@@ -488,7 +489,7 @@ public class ProjectController {
             ProjectModel existingProject = existingProjects.get(0);
 
             if(existingProject.getProjectImageUrl() != null && !existingProject.getProjectImageUrl().trim().isEmpty()) {
-                String oldFilePath = "src/main/resources/static" + existingProject.getProjectImageUrl();
+                String oldFilePath = existingProject.getProjectImageUrl();
                 imageHandler.deleteImage(oldFilePath);
             }
 
@@ -506,7 +507,7 @@ public class ProjectController {
                 // Delete the banners and campaignImageUrl in the campaign
                 for (CampaignModel campaign : existingCampaigns) {
                     if(campaign.getCampaignImageUrl() != null && !campaign.getCampaignImageUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + campaign.getCampaignImageUrl();
+                        String oldFilePath = campaign.getCampaignImageUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                     int campaignRowsAffected = jdbcTemplate.update(deleteCampaignsSql, campaign.getCampaignId());
@@ -528,7 +529,7 @@ public class ProjectController {
 
                     for (BannerModel banner : existingBanners) {
                         if (banner.getImageUrl() != null && !banner.getImageUrl().trim().isEmpty()) {
-                            String oldFilePath = "src/main/resources/static" + banner.getImageUrl();
+                            String oldFilePath = banner.getImageUrl();
                             imageHandler.deleteImage(oldFilePath);
                         }
                         int bannerRowsAffected = jdbcTemplate.update(deleteBannersSql, banner.getBannerId());

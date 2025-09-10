@@ -182,13 +182,13 @@ public class UserController {
 
             String base64Image = userRequest.getAvatarUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/users/";
+                String uploadDir = "/images/users/";
                 String imageName = "user_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
                     imageHandler.saveBase64Image(base64Image, filePath);
                     if(existinguser.getAvatarUrl() != null && !existinguser.getAvatarUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + existinguser.getAvatarUrl();
+                        String oldFilePath = existinguser.getAvatarUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {

@@ -180,13 +180,13 @@ public class SettingController {
             String base64Image = settingRequest.getBrandImageUrl();
 
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/brands/";
+                String uploadDir = "/images/brands/";
                 String imageName = "brand_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
                     imageHandler.saveBase64Image(base64Image, filePath);
                     if(existingSetting.getBrandImageUrl() != null && !existingSetting.getBrandImageUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + existingSetting.getBrandImageUrl();
+                        String oldFilePath = existingSetting.getBrandImageUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
@@ -197,7 +197,7 @@ public class SettingController {
                 settingRequest.setBrandImageUrl("/images/brands/" + imageName);
             } else if (base64Image == null && existingSetting.getBrandImageUrl() != null && !existingSetting.getBrandImageUrl().trim().isEmpty()) {
                 if(existingSetting.getBrandImageUrl() != null && !existingSetting.getBrandImageUrl().trim().isEmpty()) {
-                    String oldFilePath = "src/main/resources/static" + existingSetting.getBrandImageUrl();
+                    String oldFilePath = existingSetting.getBrandImageUrl();
                     imageHandler.deleteImage(oldFilePath);
                 }
             }
@@ -358,7 +358,7 @@ public class SettingController {
             SettingModel existingSetting = existingSettings.get(0);
             System.out.println(existingSetting.getBrandImageUrl());
             if (existingSetting.getBrandImageUrl() != null && !existingSetting.getBrandImageUrl().trim().isEmpty()) {
-                    String oldFilePath = "src/main/resources/static" + existingSetting.getBrandImageUrl();
+                    String oldFilePath = existingSetting.getBrandImageUrl();
                     imageHandler.deleteImage(oldFilePath);
             }
 

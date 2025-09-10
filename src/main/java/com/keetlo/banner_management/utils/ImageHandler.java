@@ -1,4 +1,5 @@
 package com.keetlo.banner_management.utils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -8,19 +9,29 @@ import java.io.IOException;
 
 @Service
 public class ImageHandler {
+    @Value("${image.root.directory}")
+    private String FILE_ROOT_DIRECTORY;
+
     public ImageHandler(){}
+
+    //getter
+    public String getFileRootDirectory() {
+        return FILE_ROOT_DIRECTORY;
+    }
 
     public void saveBase64Image(String base64Image, String filePath) throws IOException {
         String imageString = base64Image.split(",")[1];  // Remove the data:image/png;base64, part
+        String fullFilePath = FILE_ROOT_DIRECTORY + filePath;
+        System.out.println(fullFilePath);
         byte[] decodedBytes = Base64.getDecoder().decode(imageString);
-        File file = new File(filePath);
+        File file = new File(fullFilePath);
 
         File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             parentDir.mkdirs();  // This will create the directory and any missing parent directories
         }
 
-        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+        try (FileOutputStream fos = new FileOutputStream(fullFilePath)) {
             fos.write(decodedBytes);
         }
     }
@@ -40,7 +51,7 @@ public class ImageHandler {
 
 
     public boolean deleteImage(String filePath) {
-        File file = new File(filePath);
+        File file = new File(FILE_ROOT_DIRECTORY+filePath);
         if (file.exists()) {
             return file.delete();
         }

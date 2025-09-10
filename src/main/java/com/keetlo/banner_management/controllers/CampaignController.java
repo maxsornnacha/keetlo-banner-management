@@ -281,7 +281,7 @@ public class CampaignController {
 
         String base64Image = campaignRequest.getCampaignImageUrl();
         if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-            String uploadDir = "src/main/resources/static/images/campaigns/";  // Ensure this directory exists
+            String uploadDir = "/images/campaigns/";  // Ensure this directory exists
             String imageName = "campaign_image_" + System.currentTimeMillis() + ".webp";  // Unique file name
             String filePath = uploadDir + imageName;
             try {
@@ -462,13 +462,13 @@ public class CampaignController {
 
             String base64Image = campaignRequest.getCampaignImageUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/campaigns/";
+                String uploadDir = "/images/campaigns/";
                 String imageName = "campaign_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
                     imageHandler.saveBase64Image(base64Image, filePath);
                     if(existingCampaign.getCampaignImageUrl() != null && !existingCampaign.getCampaignImageUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + existingCampaign.getCampaignImageUrl();
+                        String oldFilePath = existingCampaign.getCampaignImageUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
@@ -554,7 +554,7 @@ public class CampaignController {
             CampaignModel existingCampaign = existingCampaigns.get(0);
 
             if(existingCampaign.getCampaignImageUrl() != null && !existingCampaign.getCampaignImageUrl().trim().isEmpty()) {
-                String oldFilePath = "src/main/resources/static" + existingCampaign.getCampaignImageUrl();
+                String oldFilePath = existingCampaign.getCampaignImageUrl();
                 imageHandler.deleteImage(oldFilePath);
             }
 
@@ -572,7 +572,7 @@ public class CampaignController {
                 // Delete the banners and campaignImageUrl in the campaign
                 for (BannerModel banner : existingBanners) {
                     if(banner.getImageUrl() != null && !banner.getImageUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + banner.getImageUrl();
+                        String oldFilePath = banner.getImageUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                     int bannerRowsAffected = jdbcTemplate.update(deleteBannersSql, banner.getBannerId());

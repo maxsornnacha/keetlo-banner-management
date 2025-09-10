@@ -235,7 +235,7 @@ public class BannerController {
 
         String base64Image = bannerRequest.getImageUrl();
         if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-            String uploadDir = "src/main/resources/static/images/banners/";  // Ensure this directory exists
+            String uploadDir = "/images/banners/";  // Ensure this directory exists
             String imageName = "banner_image_" + System.currentTimeMillis() + ".webp";  // Unique file name
             String filePath = uploadDir + imageName;
             try {
@@ -348,13 +348,13 @@ public class BannerController {
 
             String base64Image = bannerRequest.getImageUrl();
             if (base64Image != null && !base64Image.isEmpty() && imageHandler.isBase64(base64Image)) {
-                String uploadDir = "src/main/resources/static/images/banners/";
+                String uploadDir = "/images/banners/";
                 String imageName = "banner_image_" + System.currentTimeMillis() + ".webp";
                 String filePath = uploadDir + imageName;
                 try {
                     imageHandler.saveBase64Image(base64Image, filePath);
                     if(existingBanner.getImageUrl() != null && !existingBanner.getImageUrl().trim().isEmpty()) {
-                        String oldFilePath = "src/main/resources/static" + existingBanner.getImageUrl();
+                        String oldFilePath = existingBanner.getImageUrl();
                         imageHandler.deleteImage(oldFilePath);
                     }
                 } catch (IOException e) {
@@ -438,7 +438,7 @@ public class BannerController {
             BannerModel existingBanner = existingBanners.get(0);
 
             if(existingBanner.getImageUrl() != null && !existingBanner.getImageUrl().trim().isEmpty()) {
-                String oldFilePath = "src/main/resources/static" + existingBanner.getImageUrl();
+                String oldFilePath = existingBanner.getImageUrl();
                 imageHandler.deleteImage(oldFilePath);
             }
 
