@@ -138,13 +138,14 @@ export default defineComponent({
     <div v-if="!loading">
     <!-- Logs Table -->
     <div v-if="actionLogs.length > 0">
+      <div class="overflow-x-auto">
       <table class="min-w-full bg-white rounded-lg shadow-md">
         <thead>
           <tr>
             <th
               class="py-2 px-4 text-left text-sm font-semibold text-slate-600"
             >
-              Action Log ID
+              ID
             </th>
             <th
               class="py-2 px-4 text-left text-sm font-semibold text-slate-600"
@@ -178,6 +179,7 @@ export default defineComponent({
           </tr>
         </tbody>
       </table>
+      </div>
 
          <div class="lg:p-4">
             <Pagination

@@ -256,7 +256,7 @@ export default defineComponent({
               </div>
             </div>
             <span
-              class="min-w-14 lg:max-w-auto inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1"
+              class="min-w-14 max-w-[70px] lg:max-w-auto inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium flex justify-center ring-1"
               :class="statusClass"
             >
               {{ campaign?.status }}

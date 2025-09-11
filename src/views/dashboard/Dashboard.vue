@@ -28,28 +28,28 @@ export default defineComponent({
     const loading = ref(true);
     const errorMessage = ref<string | null>(null);
     const skeletonRows = Array.from({ length: 6 }, (_, i) => i);
-    const userStore = useUserStore()
+    const userStore = useUserStore();
     const { user } = storeToRefs(userStore);
-    const tz = computed(() => user.value?.timezone ?? 'UTC');
-    const df = computed(() => user.value?.dateFormat ?? 'YYYY-MM-DD');
+    const tz = computed(() => user.value?.timezone ?? "UTC");
+    const df = computed(() => user.value?.dateFormat ?? "YYYY-MM-DD");
 
     const fmtDateTime = (
-    input: string | number | Date | null | undefined,
+      input: string | number | Date | null | undefined
     ): string => {
-    return formatDateTime(input, {
-      timezone: tz.value,
-      dateFormat: df.value,
-    });
-    }
+      return formatDateTime(input, {
+        timezone: tz.value,
+        dateFormat: df.value,
+      });
+    };
 
     const fmtDate = (
-    input: string | number | Date | null | undefined,
+      input: string | number | Date | null | undefined
     ): string => {
-    return formatDate(input, {
-      timezone: tz.value,
-      dateFormat: df.value,
-    });
-    }
+      return formatDate(input, {
+        timezone: tz.value,
+        dateFormat: df.value,
+      });
+    };
 
     const fetchApi = async () => {
       try {
@@ -181,11 +181,13 @@ export default defineComponent({
 
 <template>
   <head>
-     <title>Max</title>
+    <title>Max</title>
   </head>
   <div v-if="!loading && !errorMessage" class="py-4">
     <header class="mb-6 flex items-center justify-end">
-      <div class="text-sm text-slate-500">Updated: {{ fmtDateTime(new Date()) }}</div>
+      <div class="text-sm text-slate-500">
+        Updated: {{ fmtDateTime(new Date()) }}
+      </div>
     </header>
 
     <!-- KPI cards -->
@@ -197,22 +199,22 @@ export default defineComponent({
     </section>
 
     <!-- Overview row -->
-    <section class="grid gap-4 lg:grid-cols-3 mb-6">
+    <section class="grid gap-4 grid-cols-1 lg:grid-cols-3 mb-6">
       <!-- Active campaigns -->
       <div class="lg:col-span-2">
         <Card>
           <template #title>Active Campaigns</template>
           <template #body>
-            <div class="overflow-x-auto max-h-[400px] overflow-y-auto w-full">
-              <table class="min-w-full text-sm">
+            <div class="overflow-x-auto max-h-[400px] overflow-y-auto">
+              <table class="text-sm">
                 <thead>
                   <tr class="text-left text-slate-500">
-                    <th class="py-2 pr-3">Campaign</th>
-                    <th class="py-2 pr-3">Project</th>
-                    <th class="py-2 pr-3">Status</th>
-                    <th class="py-2 pr-3">Start</th>
-                    <th class="py-2 pr-3">End</th>
-                    <th class="py-2 pr-3 text-right">Banners</th>
+                    <th class="py-2 pr-3 min-w-[100px]">Campaign</th>
+                    <th class="py-2 pr-3 min-w-[100px]">Project</th>
+                    <th class="py-2 pr-3 min-w-[100px]">Status</th>
+                    <th class="py-2 pr-3 min-w-[100px]">Start</th>
+                    <th class="py-2 pr-3 min-w-[100px]">End</th>
+                    <th class="py-2 pr-3 min-w-[100px] text-right">Banners</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -281,9 +283,7 @@ export default defineComponent({
               </div>
             </li>
             <li v-if="topBannersByClicks.length === 0">
-              <p class="text-slate-500 text-center">
-                No Banner Found Yet 
-              </p>
+              <p class="text-slate-500 text-center">No Banner Found Yet</p>
             </li>
           </ol>
         </template>
