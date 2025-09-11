@@ -55,6 +55,9 @@ public class PublicModel {
 
     //Help function
     public boolean isDateInRange(String startDate, String endDate) {
+        if(endDate == null){
+            return true;
+        }
         // Parse the start and end dates into LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate start = LocalDate.parse(startDate, formatter);
